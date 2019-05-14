@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mysql:///youyou
+    username: root
+    password: 123456

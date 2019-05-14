@@ -1,0 +1,14 @@
+server:
+  port: 9191
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: google
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml,mapper/**/*.xml
+  type-aliases-package: com.google.pojo.*

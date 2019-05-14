@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.google.mapper.BrandMapper">
+    <resultMap id="AllColumnMap" type="com.google.pojo.Brand">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="image" property="image"/>
+        <result column="letter" property="letter"/>
+    </resultMap>
+
+    <sql id="all_column">
+        id,
+        name,
+        image,
+        letter
+    </sql>
+
+
+    <select id="selectBrandById" resultType="com.google.pojo.Brand">
+        select  id, name, image, letter
+        from    tb_brand
+        where   id = #{id}
+    </select>
+</mapper>
