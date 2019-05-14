@@ -16,7 +16,6 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand selectBrandById(Brand brand) {
         Integer brandId = brand.getId();
-        System.out.println(brandMapper);
         Brand result = brandMapper.selectBrandById(brandId);
         return result;
     }
