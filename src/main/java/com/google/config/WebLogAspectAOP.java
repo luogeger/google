@@ -72,13 +72,14 @@ public class WebLogAspectAOP {
 		}
 		StringBuilder requestSb = new StringBuilder();
 		requestSb.append("\nRequestInfo:\n"
-				+ "ip 		 = " + getIpAddress(request) + "\n"
-				+ "url       = " + request.getRequestURL().toString() + "\n"
-				+ "method    = " + request.getMethod() + "\n"
-				//+ "header    = " + request.getHeader("Authorization") + "\n"
-				//+ "interface = " + requestInterface + Thread.currentThread().getName() + "\n"
-				+ "param     = " + requestParam + "\n"
-				+ "body:");
+				+ "ip 	   = " + getIpAddress(request) + "\n"
+				+ "url    = " + request.getRequestURL().toString() + "\n"
+				+ "method = " + request.getMethod() + "\n"
+				+ "header = " + request.getHeader("Authorization") + "\n"
+				//+ "thread = " + Thread.currentThread().getName() + "\n"
+				+ "interface = " + requestInterface + "\n"
+				+ "param: " + requestParam + "\n"
+				+ "body : ");
 		requestSb.append(JsonConvertUtil.formatStandardJSON(JSONObject.toJSONString(requestBody)));// body
 		logger.info(requestSb.toString());
 	}
