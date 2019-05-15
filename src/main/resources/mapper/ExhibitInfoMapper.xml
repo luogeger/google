@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.google.mapper.ExhibitInfoMapper">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.google.pojo.ExhibitInfo">
+        <result column="exhibit_code" property="exhibitCode"/>
+        <result column="exhibit_name" property="exhibitName"/>
+        <result column="exhibition_type" property="exhibitionType"/>
+        <result column="brand_type" property="brandType"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="exhibit_desc" property="exhibitDesc"/>
+        <result column="exhibition_id" property="exhibitionId"/>
+        <result column="commodity_id" property="commodityId"/>
+        <result column="company_id" property="companyId"/>
+        <result column="exhibit_msrp" property="exhibitMsrp"/>
+        <result column="preferential" property="preferential"/>
+        <result column="is_show" property="isShow"/>
+        <result column="id" property="id"/>
+        <result column="create_id" property="createId"/>
+        <result column="update_id" property="updateId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="is_enable" property="isEnable"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        exhibit_code,
+        exhibit_name,
+        exhibition_type,
+        brand_type,
+        brand_id,
+        exhibit_desc,
+        exhibition_id,
+        commodity_id,
+        company_id,
+        exhibit_msrp,
+        preferential,
+        is_show,
+        id,
+        create_id,
+        update_id,
+        create_time,
+        update_time,
+        is_delete,
+        is_enable,
+        remark
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO exhibit_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.exhibitCode != null"> exhibit_code, </if>
+            <if test="pojo.exhibitName != null"> exhibit_name, </if>
+            <if test="pojo.exhibitionType != null"> exhibition_type, </if>
+            <if test="pojo.brandType != null"> brand_type, </if>
+            <if test="pojo.brandId != null"> brand_id, </if>
+            <if test="pojo.exhibitDesc != null"> exhibit_desc, </if>
+            <if test="pojo.exhibitionId != null"> exhibition_id, </if>
+            <if test="pojo.commodityId != null"> commodity_id, </if>
+            <if test="pojo.companyId != null"> company_id, </if>
+            <if test="pojo.exhibitMsrp != null"> exhibit_msrp, </if>
+            <if test="pojo.preferential != null"> preferential, </if>
+            <if test="pojo.isShow != null"> is_show, </if>
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.createId != null"> create_id, </if>
+            <if test="pojo.updateId != null"> update_id, </if>
+            <if test="pojo.createTime != null"> create_time, </if>
+            <if test="pojo.updateTime != null"> update_time, </if>
+            <if test="pojo.isDelete != null"> is_delete, </if>
+            <if test="pojo.isEnable != null"> is_enable, </if>
+            <if test="pojo.remark != null"> remark, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.exhibitCode != null"> #{pojo.exhibitCode}, </if>
+            <if test="pojo.exhibitName != null"> #{pojo.exhibitName}, </if>
+            <if test="pojo.exhibitionType != null"> #{pojo.exhibitionType}, </if>
+            <if test="pojo.brandType != null"> #{pojo.brandType}, </if>
+            <if test="pojo.brandId != null"> #{pojo.brandId}, </if>
+            <if test="pojo.exhibitDesc != null"> #{pojo.exhibitDesc}, </if>
+            <if test="pojo.exhibitionId != null"> #{pojo.exhibitionId}, </if>
+            <if test="pojo.commodityId != null"> #{pojo.commodityId}, </if>
+            <if test="pojo.companyId != null"> #{pojo.companyId}, </if>
+            <if test="pojo.exhibitMsrp != null"> #{pojo.exhibitMsrp}, </if>
+            <if test="pojo.preferential != null"> #{pojo.preferential}, </if>
+            <if test="pojo.isShow != null"> #{pojo.isShow}, </if>
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.createId != null"> #{pojo.createId}, </if>
+            <if test="pojo.updateId != null"> #{pojo.updateId}, </if>
+            <if test="pojo.createTime != null"> #{pojo.createTime}, </if>
+            <if test="pojo.updateTime != null"> #{pojo.updateTime}, </if>
+            <if test="pojo.isDelete != null"> #{pojo.isDelete}, </if>
+            <if test="pojo.isEnable != null"> #{pojo.isEnable}, </if>
+            <if test="pojo.remark != null"> #{pojo.remark}, </if>
+        </trim>
+    </insert>
+
+    <!-- 通过展品id集合查找展品信息-->
+    <select id="selectExhibitsByIds" resultType="com.google.pojo.vo.ExhibitInfoVO">
+        select
+        id,
+        exhibit_code,
+        exhibit_name,
+        preferential,
+        exhibit_msrp AS exhibitMsrp
+        from  exhibit_info
+        where is_delete = 0
+        and   id in
+        <foreach collection="exhibitIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 展品图片 -->
+    <select id="selectExhibitPic" resultType="com.google.pojo.vo.ExhibitInfoVO">
+        select
+            exhibit_id as exhibitId,
+            pic_url as exhibitImg
+        from    exhibit_pic
+        where   is_default = 1
+        and     pic_type = 1
+        and     exhibit_id in
+        <foreach collection="exhibitIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+
+    </select>
+
+    <!-- 车系-->
+    <select id="selectExhibitCarSeries" resultType="com.google.pojo.vo.ExhibitInfoVO">
+        select
+            a.value_name as carSeries,
+            b.exhibit_id as exhibitId
+        from
+            attribute_library_value as a
+        left join
+            exhibit_attribute as b
+        on    a.id = b.attribute_value
+        where b.attribute_id = 4
+        and   b.exhibit_id in
+        <foreach collection="exhibitIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+
+
+
+</mapper>
