@@ -71,15 +71,15 @@ public class WebLogAspectAOP {
 			}
 		}
 		StringBuilder requestSb = new StringBuilder();
-		requestSb.append("\n[请求信息]:\n"
-				+ "请求header=" + request.getHeader("Authorization") + "\n"
-				+ "请求IP=" + getIpAddress(request) + "\n"
-				+ "请求方式=" + request.getMethod() + "\n"
-				+ "请求地址=" + Thread.currentThread().getName() + "：" + request.getRequestURL().toString() + "\n"
-				+ "请求接口=" + requestInterface + "\n"
-				+ "请求Param参数=" + requestParam + "\n"
-				+ "请求Body对象= \n");
-		requestSb.append(JsonConvertUtil.formatStandardJSON(JSONObject.toJSONString(requestBody)));
+		requestSb.append("\nRequestInfo:\n"
+				+ "ip 		 = " + getIpAddress(request) + "\n"
+				+ "url       = " + request.getRequestURL().toString() + "\n"
+				+ "method    = " + request.getMethod() + "\n"
+				//+ "header    = " + request.getHeader("Authorization") + "\n"
+				//+ "interface = " + requestInterface + Thread.currentThread().getName() + "\n"
+				+ "param     = " + requestParam + "\n"
+				+ "body:");
+		requestSb.append(JsonConvertUtil.formatStandardJSON(JSONObject.toJSONString(requestBody)));// body
 		logger.info(requestSb.toString());
 	}
 
@@ -89,7 +89,7 @@ public class WebLogAspectAOP {
 		Object obj = null;
 		try {
 			obj = proceedingJoinPoint.proceed();
-			logger.info("耗时 : {}", (System.currentTimeMillis() - startTime));
+			logger.info("time : {}", (System.currentTimeMillis() - startTime));
 		} catch (Throwable throwable) {
 			obj = handlerException(proceedingJoinPoint, throwable);
 		}
@@ -105,11 +105,10 @@ public class WebLogAspectAOP {
 				+ joinPoint.getSignature().getName();
 		long execTime = System.currentTimeMillis() - startTime.get();
 		StringBuilder responseSb = new StringBuilder();
-		responseSb.append("\n[后台响应结果]:\n"
-				+ "URL地址=" + request.getRequestURL().toString() + "\n"
-				+ "后台接口=" + requestInterface + "\n"
-				+ "响应耗时[" + execTime + "ms]" + "\n"
-				+ "响应数据结果:\n"
+		responseSb.append("\nResponseInfo:\n"
+				//+ "url = " + request.getRequestURL().toString() + "\n"
+				//+ "interface = " + requestInterface + "\n"
+				//+ "time = " + execTime + "ms" + "\n"
 		);
 		responseSb.append(JSONObject.toJSONString(returnValue));
 		logger.info(responseSb.toString());
